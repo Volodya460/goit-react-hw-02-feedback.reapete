@@ -20,9 +20,14 @@ export class App extends Component {
 
   totalCounter = () => {
     const { good, neutral, bad } = this.state;
-    let total = good + neutral + bad;
+    let totalNumber = good + neutral + bad;
+    let totalProcent = 0;
+    totalProcent = (good / totalNumber) * 100;
 
-    return total || 0;
+    return {
+      totalNumber: totalNumber || 0,
+      totalProcent: Math.round(totalProcent) || 0,
+    };
   };
 
   procentTotal = () => {
@@ -46,7 +51,7 @@ export class App extends Component {
         </Section>
 
         <Section title="Statistics">
-          {this.totalCounter() === 0 ? (
+          {this.totalCounter().totalNumber === 0 ? (
             <p>There is no feedback</p>
           ) : (
             <Statistics
@@ -54,7 +59,6 @@ export class App extends Component {
               neutral={neutral}
               bad={bad}
               total={this.totalCounter}
-              procentTotal={this.procentTotal}
             />
           )}
         </Section>
